@@ -7,5 +7,9 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react"
-  }
+  },
+  "include": [
+    "./src",
+    "webpack.config.ts"
+  ]
 }
