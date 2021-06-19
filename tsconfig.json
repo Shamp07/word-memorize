@@ -6,10 +6,16 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@types": ["src/types"],
+      "@atoms/*": ["src/components/atoms/*"],
+      "@pages/*": ["src/components/pages/*"]
+    }
   },
   "include": [
     "./src",
     "webpack.config.ts"
-  ]
+  ],
 }

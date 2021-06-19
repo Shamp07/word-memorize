@@ -8,6 +8,11 @@ const config: webpack.Configuration = {
 
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      '@types': path.resolve(__dirname, 'src/types'),
+      '@atoms': path.resolve(__dirname, 'src/components/atoms'),
+      '@pages': path.resolve(__dirname, 'src/components/pages'),
+    },
   },
 
   module: {
@@ -27,6 +32,7 @@ const config: webpack.Configuration = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html',
+      favicon: 'public/favicon.ico',
     }),
   ],
 };
