@@ -1,8 +1,13 @@
 import path from 'path';
-import webpack from 'webpack';
+import { Configuration as WebpackConfiguration } from 'webpack';
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-const config: webpack.Configuration = {
+interface Configuration extends WebpackConfiguration {
+  devServer?: WebpackDevServerConfiguration;
+}
+
+const config: Configuration = {
   mode: 'development',
   entry: './src',
 
@@ -35,6 +40,12 @@ const config: webpack.Configuration = {
       favicon: 'public/favicon.ico',
     }),
   ],
+
+  devServer: {
+    proxy: {
+      '/api': 'http://localhost:8081',
+    },
+  },
 };
 
 export default config;

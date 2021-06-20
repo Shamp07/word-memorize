@@ -17,21 +17,26 @@ const Content = () => {
   }, [setText]);
 
   const movePage = useCallback(() => {
+    if (!text.trim()) {
+      alert('입력해주세요!');
+      return;
+    }
+
     setPage(ContentPage.MEMORIZE);
-  }, [setPage]);
+  }, [setPage, text]);
 
   const pageContent = useMemo(() => {
     switch (page) {
       case ContentPage.INPUT:
         return <Input text={text} onChangeText={onChangeText} movePage={movePage} />;
       case ContentPage.MEMORIZE:
-        return <Memorize />;
+        return <Memorize text={text} />;
       case ContentPage.TEST:
         return <Test />;
       default:
         return null;
     }
-  }, [page]);
+  }, [page, text]);
 
   return (
     <Root>
