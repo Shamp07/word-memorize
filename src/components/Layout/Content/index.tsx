@@ -46,7 +46,6 @@ const Content = () => {
 };
 
 const Root = styled.div`
-  width: 500px;
   border-radius: 14px;
   box-shadow: rgb(20 20 20 / 2%) 2px 8px 12px 0, rgb(20 20 20 / 2%) 0 1px 3px 0;
   background-color: #fff;

@@ -12,9 +12,9 @@ interface Props {
 }
 
 const Input = ({ text, onChangeText, movePage }: Props) => (
-  <>
+  <Root>
     <Title text="영어단어 입력" />
-    <Description>영어단어들을 띄어쓰기로 구분하여 붙여넣어 주세요.</Description>
+    <Description>영어단어들을 줄바꿈으로 구분하여 붙여넣어 주세요.</Description>
     <TextareaWrapper>
       <Textarea
         value={text}
@@ -29,8 +29,12 @@ const Input = ({ text, onChangeText, movePage }: Props) => (
         다음
       </SubmitButton>
     </ButtonWrapper>
-  </>
+  </Root>
 );
+
+const Root = styled.div`
+  width: 500px;
+`;
 
 const Description = styled.div`
   margin-bottom: 10px;

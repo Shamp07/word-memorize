@@ -1,34 +1,50 @@
-import express from 'express';
+import express, { Application, Request, Response } from 'express';
 import puppeteer from 'puppeteer';
+import cheerio from 'cheerio';
+
+import * as T from '@types';
 
 class App {
-  public application : express.Application;
+  public application : Application;
 
   constructor() {
     this.application = express();
   }
 }
 const app = new App().application;
-app.get('/api/search', (req : express.Request, res : express.Response) => {
-  (async () => {
-    // 브라우저를 실행한다.
-    // 옵션으로 headless모드를 끌 수 있다.
-    const browser = await puppeteer.launch({
-      headless: false,
-    });
+app.get('/api/search', async (req : Request, res : Response) => {
+  const { text } = req.query;
+  const vocas: T.Vocabulary[] = [];
 
-    // 새로운 페이지를 연다.
-    const page = await browser.newPage();
-    // 페이지의 크기를 설정한다.
-    await page.setViewport({
-      width: 1366,
-      height: 768,
-    });
-    // "https://www.goodchoice.kr/product/search/2" URL에 접속한다. (여기어때 호텔 페이지)
-    await page.goto('https://www.goodchoice.kr/product/search/2');
-  })();
+  await Promise.all((text as string).split('\n').map((word) => getWordMean(word, vocas)));
 
-  res.send('start');
+  res.send(vocas);
 });
 
-app.listen(8081, () => console.log('start'));
+const getWordMean = async (word: string, vocas: T.Vocabulary[]) => {
+  const browser = await puppeteer.launch({
+    headless: true,
+  });
+
+  const page = await browser.newPage();
+
+  await page.goto(`https://dic.daum.net/search.do?q=${word}`);
+
+  const content = await page.content();
+  const $ = cheerio.load(content);
+  const meanList = $('.cleanword_type .list_search > li');
+
+  let means = '';
+  meanList.each((index, mean) => {
+    means += `${cheerio.load(mean).text()} `;
+  });
+
+  vocas.push({
+    word,
+    means,
+  });
+
+  browser.close();
+};
+
+app.listen(8081);
