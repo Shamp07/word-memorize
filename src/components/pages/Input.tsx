@@ -1,36 +1,48 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 import styled from 'styled-components';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { Button } from '@material-ui/core';
 
 import Title from '@atoms/Title';
+import * as T from '@types';
 
 interface Props {
   readonly text: string;
   onChangeText(event: ChangeEvent<HTMLTextAreaElement>): void;
-  movePage(): void;
+  setPage(page: T.ContentPage): void;
 }
 
-const Input = ({ text, onChangeText, movePage }: Props) => (
-  <Root>
-    <Title text="영어단어 입력" />
-    <Description>영어단어들을 줄바꿈으로 구분하여 붙여넣어 주세요.</Description>
-    <TextareaWrapper>
-      <Textarea
-        value={text}
-        onChange={onChangeText}
-        rowsMin={15}
-        rowsMax={16}
-        placeholder="영단어들을 입력해주세요."
-      />
-    </TextareaWrapper>
-    <ButtonWrapper>
-      <SubmitButton variant="contained" color="primary" size="large" onClick={movePage}>
-        다음
-      </SubmitButton>
-    </ButtonWrapper>
-  </Root>
-);
+const Input = ({ text, onChangeText, setPage }: Props) => {
+  const moveToMemorize = useCallback(() => {
+    if (!text.trim()) {
+      alert('단어를 하나이상 입력해주세요.');
+      return;
+    }
+
+    setPage(T.ContentPage.MEMORIZE);
+  }, [text]);
+
+  return (
+    <Root>
+      <Title text="영어단어 입력" />
+      <Description>영어단어들을 줄바꿈으로 구분하여 붙여넣어 주세요.</Description>
+      <TextareaWrapper>
+        <Textarea
+          value={text}
+          onChange={onChangeText}
+          rowsMin={15}
+          rowsMax={16}
+          placeholder="영단어들을 입력해주세요."
+        />
+      </TextareaWrapper>
+      <ButtonWrapper>
+        <SubmitButton variant="contained" color="primary" size="large" onClick={moveToMemorize}>
+          다음
+        </SubmitButton>
+      </ButtonWrapper>
+    </Root>
+  );
+};
 
 const Root = styled.div`
   width: 500px;

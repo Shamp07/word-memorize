@@ -1,4 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 
@@ -9,11 +11,20 @@ import { Button } from '@material-ui/core';
 
 interface Props {
   readonly text: string;
+  readonly vocas: T.Vocabulary[];
+  setPage(page: T.ContentPage): void;
+  setVocas(vocas: T.Vocabulary[]): void;
 }
 
-const Memorize = ({ text }: Props) => {
+const Memorize = ({
+  text, setPage, vocas, setVocas,
+}: Props) => {
+  console.log(vocas);
   const [loading, setLoading] = useState(true);
-  const [vocas, setVocas] = useState<T.Vocabulary[]>([]);
+
+  const moveToTest = useCallback(() => {
+    setPage(T.ContentPage.TEST);
+  }, [text]);
 
   useEffect(() => {
     axios.get('/api/search', {
@@ -22,6 +33,7 @@ const Memorize = ({ text }: Props) => {
       },
     })
       .then((result) => {
+        console.log('hi');
         setVocas(result.data);
         setLoading(false);
       });
@@ -48,7 +60,7 @@ const Memorize = ({ text }: Props) => {
         <PrevButton variant="contained" color="default" size="large">
           이전
         </PrevButton>
-        <SubmitButton variant="contained" color="primary" size="large">
+        <SubmitButton variant="contained" color="primary" size="large" onClick={moveToTest}>
           다음
         </SubmitButton>
       </ButtonWrapper>

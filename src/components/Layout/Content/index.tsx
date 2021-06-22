@@ -7,8 +7,10 @@ import { ContentPage } from '@types';
 import Input from '@pages/Input';
 import Memorize from '@pages/Memorize';
 import Test from '@pages/Test';
+import * as T from '@types';
 
 const Content = () => {
+  const [vocas, setVocas] = useState<T.Vocabulary[]>([]);
   const [text, setText] = useState('');
   const [page, setPage] = useState<ContentPage>(ContentPage.INPUT);
 
@@ -16,27 +18,18 @@ const Content = () => {
     setText(event.target.value);
   }, [setText]);
 
-  const movePage = useCallback(() => {
-    if (!text.trim()) {
-      alert('입력해주세요!');
-      return;
-    }
-
-    setPage(ContentPage.MEMORIZE);
-  }, [setPage, text]);
-
   const pageContent = useMemo(() => {
     switch (page) {
       case ContentPage.INPUT:
-        return <Input text={text} onChangeText={onChangeText} movePage={movePage} />;
+        return <Input text={text} onChangeText={onChangeText} setPage={setPage} />;
       case ContentPage.MEMORIZE:
-        return <Memorize text={text} />;
+        return <Memorize text={text} setPage={setPage} vocas={vocas} setVocas={setVocas} />;
       case ContentPage.TEST:
-        return <Test />;
+        return <Test setPage={setPage} vocas={vocas} />;
       default:
         return null;
     }
-  }, [page, text]);
+  }, [page, text, vocas]);
 
   return (
     <Root>
