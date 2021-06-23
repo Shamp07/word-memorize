@@ -21,17 +21,18 @@ app.get('/api/search', async (req : Request, res : Response) => {
   res.send(vocas);
 });
 
-const getWordMean = async (word: string, vocas: T.Vocabulary[]) => {
+const getWordMean = async (keyword: string, vocas: T.Vocabulary[]) => {
   const browser = await puppeteer.launch({
     headless: true,
   });
 
   const page = await browser.newPage();
 
-  await page.goto(`https://dic.daum.net/search.do?q=${word}`);
+  await page.goto(`https://dic.daum.net/search.do?q=${keyword}`);
 
   const content = await page.content();
   const $ = cheerio.load(content);
+  const word = $('.search_cleanword > strong > a > span').text();
   const meanList = $('.cleanword_type .list_search > li');
 
   let means = '';
@@ -44,7 +45,7 @@ const getWordMean = async (word: string, vocas: T.Vocabulary[]) => {
     means,
   });
 
-  browser.close();
+  await browser.close();
 };
 
 app.listen(8081);

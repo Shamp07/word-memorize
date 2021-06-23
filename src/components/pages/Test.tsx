@@ -1,6 +1,6 @@
 import React, {
   ChangeEvent, useCallback, useEffect, useRef, useState,
-  KeyboardEvent,
+  KeyboardEvent, useMemo,
 } from 'react';
 
 import * as T from '@types';
@@ -19,13 +19,20 @@ const Test = ({ vocas, setPage }: Props) => {
   const [answer, setAnswer] = useState('');
   const [isWrong, setIsWrong] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const [score, setScore] = useState(100);
 
   useEffect(() => {
     input?.current?.focus();
   }, []);
 
+  const scorePerWord = useMemo(() => 100 / vocas.length, [vocas.length]);
+
   const moveToInput = useCallback(() => {
     setPage(T.ContentPage.INPUT);
+  }, []);
+
+  const moveToMemorize = useCallback(() => {
+    setPage(T.ContentPage.MEMORIZE);
   }, []);
 
   const onChangeAnswer = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -35,22 +42,39 @@ const Test = ({ vocas, setPage }: Props) => {
   const submitAnswer = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== 'Enter') return;
 
-    if (answer === vocas[index].word) {
+    if (answer === vocas[index].word || isWrong) {
       const currentIndex = index + 1;
+      if (answer !== vocas[index].word) setScore(score - (scorePerWord / 2));
       if (currentIndex < vocas.length) {
         setIndex(currentIndex);
         setAnswer('');
         setIsWrong(false);
       } else setIsDone(true);
-    } else setIsWrong(true);
+    } else {
+      setIsWrong(true);
+      setScore(score - (scorePerWord / 2));
+    }
   };
 
   if (isDone) {
-    // TODO:테스트 점수 구현
     return (
-      <div>
-        테스트 완료
-      </div>
+      <Root>
+        <Title text="테스트 완료" />
+        <Article isWrong={isWrong}>
+          <h1>
+            <div>점수</div>
+            <div>{score}</div>
+          </h1>
+        </Article>
+        <ButtonWrapper>
+          <PrevButton variant="contained" color="default" size="large" onClick={moveToMemorize}>
+            재시험 보기
+          </PrevButton>
+          <SubmitButton variant="contained" color="primary" size="large" onClick={moveToInput}>
+            영어단어 입력
+          </SubmitButton>
+        </ButtonWrapper>
+      </Root>
     );
   }
 
@@ -70,12 +94,9 @@ const Test = ({ vocas, setPage }: Props) => {
         />
       </Article>
       <ButtonWrapper>
-        <PrevButton variant="contained" color="default" size="large">
+        <PrevButton variant="contained" color="default" size="large" onClick={moveToMemorize}>
           이전
         </PrevButton>
-        <SubmitButton variant="contained" color="primary" size="large" onClick={moveToInput}>
-          테스트 끝내기
-        </SubmitButton>
       </ButtonWrapper>
     </Root>
   );
@@ -99,11 +120,11 @@ const Article = styled.article<WrongProp>`
   border: 1px solid #e6e6e6;
   padding: 20px;
   text-align: center;
-  
+
   & > h2 {
     margin-bottom: 50px;
   }
-  
+
   & > input {
     padding: 10px;
     border-radius: 10px;

@@ -19,12 +19,15 @@ interface Props {
 const Memorize = ({
   text, setPage, vocas, setVocas,
 }: Props) => {
-  console.log(vocas);
   const [loading, setLoading] = useState(true);
 
   const moveToTest = useCallback(() => {
     setPage(T.ContentPage.TEST);
-  }, [text]);
+  }, []);
+
+  const moveToInput = useCallback(() => {
+    setPage(T.ContentPage.INPUT);
+  }, []);
 
   useEffect(() => {
     axios.get('/api/search', {
@@ -33,7 +36,6 @@ const Memorize = ({
       },
     })
       .then((result) => {
-        console.log('hi');
         setVocas(result.data);
         setLoading(false);
       });
@@ -57,7 +59,7 @@ const Memorize = ({
         {vocaList}
       </VocaList>
       <ButtonWrapper>
-        <PrevButton variant="contained" color="default" size="large">
+        <PrevButton variant="contained" color="default" size="large" onClick={moveToInput}>
           이전
         </PrevButton>
         <SubmitButton variant="contained" color="primary" size="large" onClick={moveToTest}>
