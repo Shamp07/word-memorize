@@ -10,10 +10,11 @@ import { Button } from '@material-ui/core';
 
 interface Props {
   readonly vocas: T.Vocabulary[];
+  setVocas(vocas: T.Vocabulary[]): void;
   setPage(page: T.ContentPage): void;
 }
 
-const Test = ({ vocas, setPage }: Props) => {
+const Test = ({ vocas, setVocas, setPage }: Props) => {
   const input = useRef<HTMLInputElement>(null);
   const [index, setIndex] = useState(0);
   const [answer, setAnswer] = useState('');
@@ -28,6 +29,7 @@ const Test = ({ vocas, setPage }: Props) => {
   const scorePerWord = useMemo(() => 100 / vocas.length, [vocas.length]);
 
   const moveToInput = useCallback(() => {
+    setVocas([]);
     setPage(T.ContentPage.INPUT);
   }, []);
 

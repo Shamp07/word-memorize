@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useMemo, useState,
+  useCallback, useLayoutEffect, useMemo, useState,
 } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
@@ -19,17 +19,21 @@ interface Props {
 const Memorize = ({
   text, setPage, vocas, setVocas,
 }: Props) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const moveToTest = useCallback(() => {
     setPage(T.ContentPage.TEST);
   }, []);
 
   const moveToInput = useCallback(() => {
+    setVocas([]);
     setPage(T.ContentPage.INPUT);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (vocas.length) return;
+    setLoading(true);
+
     axios.get('/api/search', {
       params: {
         text: text.trim(),

@@ -25,7 +25,7 @@ const Content = () => {
       case ContentPage.MEMORIZE:
         return <Memorize text={text} setPage={setPage} vocas={vocas} setVocas={setVocas} />;
       case ContentPage.TEST:
-        return <Test setPage={setPage} vocas={vocas} />;
+        return <Test vocas={vocas} setVocas={setVocas} setPage={setPage} />;
       default:
         return null;
     }
