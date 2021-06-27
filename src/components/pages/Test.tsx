@@ -44,6 +44,11 @@ const Test = ({ vocas, setVocas, setPage }: Props) => {
   const submitAnswer = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== 'Enter') return;
 
+    if (!answer.trim()) {
+      alert('단어의 스펠링을 입력해주세요!');
+      return;
+    }
+
     if (answer === vocas[index].word || isWrong) {
       const currentIndex = index + 1;
       if (answer !== vocas[index].word) setScore(score - (scorePerWord / 2));
@@ -57,6 +62,12 @@ const Test = ({ vocas, setVocas, setPage }: Props) => {
       setScore(score - (scorePerWord / 2));
     }
   };
+
+  const wrongMessage = useMemo(() => (isWrong ? (
+    <WarningDescription>
+      오답입니다. 한번 더 틀리면 다음 단어로 넘어갑니다.
+    </WarningDescription>
+  ) : null), [isWrong]);
 
   if (isDone) {
     return (
@@ -94,6 +105,7 @@ const Test = ({ vocas, setVocas, setPage }: Props) => {
           ref={input}
           onKeyPress={submitAnswer}
         />
+        {wrongMessage}
       </Article>
       <ButtonWrapper>
         <PrevButton variant="contained" color="default" size="large" onClick={moveToMemorize}>
@@ -150,6 +162,12 @@ const SubmitButton = styled(Button)`
     box-shadow: none;
     border-radius: 10px;
   }
+`;
+
+const WarningDescription = styled.div`
+  margin-top: 10px;
+  color: red;
+  font-size: 13px;
 `;
 
 export default Test;

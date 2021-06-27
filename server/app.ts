@@ -16,6 +16,7 @@ app.get('/api/search', async (req : Request, res : Response) => {
   const { text } = req.query;
   const vocas: T.Vocabulary[] = [];
 
+  process.setMaxListeners(100);
   await Promise.all((text as string).split('\n').map((word) => getWordMean(word, vocas)));
 
   res.send(vocas);
