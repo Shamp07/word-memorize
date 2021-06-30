@@ -21,6 +21,7 @@ const Test = ({ vocas, setVocas, setPage }: Props) => {
   const [isWrong, setIsWrong] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [score, setScore] = useState(100);
+  const [wrongVocas, setWrongVocas] = useState<T.Vocabulary[]>([]);
 
   useEffect(() => {
     input?.current?.focus();
@@ -51,7 +52,10 @@ const Test = ({ vocas, setVocas, setPage }: Props) => {
 
     if (answer === vocas[index].word || isWrong) {
       const currentIndex = index + 1;
-      if (answer !== vocas[index].word) setScore(score - (scorePerWord / 2));
+      if (answer !== vocas[index].word) {
+        setScore(score - (scorePerWord / 2));
+        setWrongVocas(((prevState) => [...prevState, vocas[index]]));
+      }
       if (currentIndex < vocas.length) {
         setIndex(currentIndex);
         setAnswer('');
@@ -59,6 +63,7 @@ const Test = ({ vocas, setVocas, setPage }: Props) => {
       } else setIsDone(true);
     } else {
       setIsWrong(true);
+      setAnswer('');
       setScore(score - (scorePerWord / 2));
     }
   };
@@ -69,6 +74,23 @@ const Test = ({ vocas, setVocas, setPage }: Props) => {
     </WarningDescription>
   ) : null), [isWrong]);
 
+  const WrongVocaList = useMemo(() => wrongVocas.map(({ word, means }) => (
+    <li key={word}>
+      <h3>{word}</h3>
+      <div>{means}</div>
+    </li>
+  )), [wrongVocas]);
+
+  const WrongVocaSection = useMemo(() => (wrongVocas.length ? (
+    <WrongVocasWrapper>
+      <hr />
+      <h3>틀린 단어 목록</h3>
+      <ul>
+        {WrongVocaList}
+      </ul>
+    </WrongVocasWrapper>
+  ) : null), [wrongVocas.length]);
+
   if (isDone) {
     return (
       <Root>
@@ -76,8 +98,16 @@ const Test = ({ vocas, setVocas, setPage }: Props) => {
         <Article isWrong={isWrong}>
           <h1>
             <div>점수</div>
-            <div>{score}</div>
+            <div>{score.toFixed(1)}</div>
           </h1>
+          <h3>
+            {vocas.length}
+            개 중
+            {' '}
+            {vocas.length - wrongVocas.length}
+            개를 맞추셨습니다!
+          </h3>
+          {WrongVocaSection}
         </Article>
         <ButtonWrapper>
           <PrevButton variant="contained" color="default" size="large" onClick={moveToMemorize}>
@@ -95,6 +125,11 @@ const Test = ({ vocas, setVocas, setPage }: Props) => {
     <Root>
       <Title text="테스트" />
       <Article isWrong={isWrong}>
+        <div>
+          {index + 1}
+          /
+          {vocas.length}
+        </div>
         <h2>
           {vocas[index].means}
         </h2>
@@ -168,6 +203,26 @@ const WarningDescription = styled.div`
   margin-top: 10px;
   color: red;
   font-size: 13px;
+`;
+
+const WrongVocasWrapper = styled.div`
+  margin-top: 20px;
+  
+  & > ul {
+    list-style: none;
+    text-align: left;
+    padding: 0;
+  }
+  
+  & > h3 {
+    margin-bottom: 15px;
+  }
+  
+  & > hr {
+    border: 0;
+    background: #e6e6e6;
+    height: 1px;
+  }
 `;
 
 export default Test;

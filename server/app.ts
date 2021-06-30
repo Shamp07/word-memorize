@@ -1,8 +1,8 @@
 import express, { Application, Request, Response } from 'express';
-import puppeteer from 'puppeteer';
 import cheerio from 'cheerio';
 
 import * as T from '@types';
+import axios from 'axios';
 
 class App {
   public application : Application;
@@ -23,16 +23,8 @@ app.get('/api/search', async (req : Request, res : Response) => {
 });
 
 const getWordMean = async (keyword: string, vocas: T.Vocabulary[]) => {
-  const browser = await puppeteer.launch({
-    headless: true,
-  });
-
-  const page = await browser.newPage();
-
-  await page.goto(`https://dic.daum.net/search.do?q=${keyword}`);
-
-  const content = await page.content();
-  const $ = cheerio.load(content);
+  const result = await axios.get(`https://dic.daum.net/search.do?q=${keyword}`);
+  const $ = cheerio.load(result.data);
   const word = $('.search_cleanword > strong > a > span').text();
   const meanList = $('.cleanword_type .list_search > li');
 
@@ -45,8 +37,6 @@ const getWordMean = async (keyword: string, vocas: T.Vocabulary[]) => {
     word,
     means,
   });
-
-  await browser.close();
 };
 
 app.listen(8081);

@@ -25,7 +25,13 @@ const Content = () => {
       case ContentPage.MEMORIZE:
         return <Memorize text={text} setPage={setPage} vocas={vocas} setVocas={setVocas} />;
       case ContentPage.TEST:
-        return <Test vocas={vocas} setVocas={setVocas} setPage={setPage} />;
+        return (
+          <Test
+            vocas={vocas.sort(() => Math.random() - 0.5)}
+            setVocas={setVocas}
+            setPage={setPage}
+          />
+        );
       default:
         return null;
     }

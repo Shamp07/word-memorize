@@ -31,7 +31,7 @@ const Input = ({ text, onChangeText, setPage }: Props) => {
           value={text}
           onChange={onChangeText}
           rowsMin={15}
-          rowsMax={16}
+          rowsMax={40}
           placeholder="영단어들을 입력해주세요."
         />
       </TextareaWrapper>
