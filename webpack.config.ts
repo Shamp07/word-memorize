@@ -16,7 +16,6 @@ const config: Configuration = {
     alias: {
       '@types': path.resolve(__dirname, 'src/types'),
       '@atoms': path.resolve(__dirname, 'src/components/atoms'),
-      '@pages': path.resolve(__dirname, 'src/components/pages'),
     },
   },
 

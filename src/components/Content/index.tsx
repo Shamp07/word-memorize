@@ -1,30 +1,27 @@
-import React, {
-  ChangeEvent, useCallback, useState, useMemo,
-} from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import styled from 'styled-components';
 
-import { ContentPage } from '@types';
-import Input from '@pages/Input';
-import Memorize from '@pages/Memorize';
-import Test from '@pages/Test';
 import * as T from '@types';
+import Input from './Input';
+import Memorize from './Memorize';
+import Test from './Test';
 
 const Content = () => {
   const [vocas, setVocas] = useState<T.Vocabulary[]>([]);
   const [text, setText] = useState('');
-  const [page, setPage] = useState<ContentPage>(ContentPage.INPUT);
+  const [page, setPage] = useState(T.ContentPage.INPUT);
 
   const onChangeText = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   }, [setText]);
 
-  const pageContent = useMemo(() => {
+  const content = () => {
     switch (page) {
-      case ContentPage.INPUT:
+      case T.ContentPage.INPUT:
         return <Input text={text} onChangeText={onChangeText} setPage={setPage} />;
-      case ContentPage.MEMORIZE:
+      case T.ContentPage.MEMORIZE:
         return <Memorize text={text} setPage={setPage} vocas={vocas} setVocas={setVocas} />;
-      case ContentPage.TEST:
+      case T.ContentPage.TEST:
         return (
           <Test
             vocas={vocas.sort(() => Math.random() - 0.5)}
@@ -35,11 +32,11 @@ const Content = () => {
       default:
         return null;
     }
-  }, [page, text, vocas]);
+  };
 
   return (
     <Root>
-      {pageContent}
+      {content}
     </Root>
   );
 };

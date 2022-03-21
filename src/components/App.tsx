@@ -2,12 +2,13 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 import Layout from './Layout';
+import Content from './Content';
 
 const App = () => (
-  <>
+  <Layout>
     <GlobalStyle />
-    <Layout />
-  </>
+    <Content />
+  </Layout>
 );
 
 const GlobalStyle = createGlobalStyle`

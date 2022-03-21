@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 
-import Content from './Content';
+interface Props {
+  children: ReactNode;
+}
 
-const Layout = () => (
+const Layout = ({ children }: Props) => (
   <Root>
-    <Content />
+    {children}
   </Root>
 );
 
