@@ -1,9 +1,13 @@
-import React, { FC } from 'react';
+import React from 'react';
 
-const App: FC = () => (
-  <div>
-    Hello Vite!
-  </div>
-);
+import Layout from './Layout';
+
+function App() {
+  return (
+    <Layout>
+      Hello Vite!
+    </Layout>
+  );
+}
 
 export default App;
