@@ -1,8 +1,9 @@
 import React, { ReactNode } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
+import { Global } from '@emotion/react';
 
 import palette from '@constants/palette';
-import GlobalStyle from './GlobalStyle';
+import globalStyle from './globalStyle';
 import Sidebar from './Sidebar';
 
 interface Props {
@@ -22,7 +23,7 @@ const Root = styled.div`
 function Layout({ children }: Props) {
   return (
     <Root>
-      <GlobalStyle />
+      <Global styles={globalStyle} />
       <Sidebar />
       {children}
     </Root>

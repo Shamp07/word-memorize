@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@constants': path.resolve(__dirname, './src/constants'),
+      '@atoms': path.resolve(__dirname, './src/components/atoms'),
     },
   },
 });
