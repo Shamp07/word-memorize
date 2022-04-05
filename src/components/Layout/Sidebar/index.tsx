@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBrain } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
+import QuizIcon from '@mui/icons-material/Quiz';
+import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
+import TimerIcon from '@mui/icons-material/Timer';
+import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
+import FaceOutlinedIcon from '@mui/icons-material/FaceOutlined';
 
 import Button from '@atoms/Button';
 
@@ -23,28 +27,28 @@ const PrimaryButton = styled(Button)`
   height: 56px;
   background: #0083FF;
   border-radius: 23px;
+  
+  & > svg {
+    width: 28px;
+    height: 28px;
+    color: white;
+  }
 `;
 
 const SecondButton = styled(PrimaryButton)`
   background: transparent;
+  
+  & > svg {
+    color: black;
+  }
 `;
 
-const ProfileButton = styled(SecondButton)`
+const UserButton = styled(SecondButton)`
   border: 2px solid #0083FF;
-`;
-
-const PrimaryIcon = styled(FontAwesomeIcon)`
-  width: 24px;
-  height: 24px;
-  color: white;
-`;
-
-const SecondIcon = styled(PrimaryIcon)`
-  color: #2F2F2F;
-`;
-
-const ProfileIcon = styled(PrimaryIcon)`
-  color: #0083FF;
+  
+  & > svg {
+    color: #0083FF;
+  }
 `;
 
 const Menu = styled.ul`
@@ -58,28 +62,28 @@ function Sidebar() {
   return (
     <Root>
       <PrimaryButton variant="contained">
-        <PrimaryIcon icon={faBrain} />
+        <SentimentSatisfiedAltIcon />
       </PrimaryButton>
       <Menu>
         <SecondButton variant="text">
-          <SecondIcon icon={faBrain} />
+          <SaveAsOutlinedIcon />
         </SecondButton>
         <SecondButton variant="text">
-          <SecondIcon icon={faBrain} />
+          <QuizIcon />
         </SecondButton>
         <SecondButton variant="text">
-          <SecondIcon icon={faBrain} />
+          <SportsEsportsOutlinedIcon />
         </SecondButton>
         <SecondButton variant="text">
-          <SecondIcon icon={faBrain} />
+          <TimerIcon />
         </SecondButton>
         <SecondButton variant="text">
-          <SecondIcon icon={faBrain} />
+          <TimelineOutlinedIcon />
         </SecondButton>
       </Menu>
-      <ProfileButton variant="text">
-        <ProfileIcon icon={faUser} />
-      </ProfileButton>
+      <UserButton variant="text">
+        <FaceOutlinedIcon />
+      </UserButton>
     </Root>
   );
 }
