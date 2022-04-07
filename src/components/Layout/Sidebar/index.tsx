@@ -2,13 +2,15 @@ import React from 'react';
 import styled from '@emotion/styled';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
-import QuizIcon from '@mui/icons-material/Quiz';
+import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
-import TimerIcon from '@mui/icons-material/Timer';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import FaceOutlinedIcon from '@mui/icons-material/FaceOutlined';
 
 import Button from '@atoms/Button';
+import { ContentPath } from '@constants/route';
+import LinkButton from './LinkButton';
 
 const Root = styled.div`
   display: flex;
@@ -35,15 +37,7 @@ const PrimaryButton = styled(Button)`
   }
 `;
 
-const SecondButton = styled(PrimaryButton)`
-  background: transparent;
-  
-  & > svg {
-    color: black;
-  }
-`;
-
-const UserButton = styled(SecondButton)`
+const UserButton = styled(PrimaryButton)`
   border: 2px solid #0083FF;
   
   & > svg {
@@ -58,28 +52,33 @@ const Menu = styled.ul`
   height: 326px;
 `;
 
+const menu = [{
+  path: ContentPath.WORD,
+  icon: <SaveAsOutlinedIcon />,
+}, {
+  path: ContentPath.CARD,
+  icon: <QuizOutlinedIcon />,
+}, {
+  path: ContentPath.GAME,
+  icon: <SportsEsportsOutlinedIcon />,
+}, {
+  path: ContentPath.TIMER,
+  icon: <TimerOutlinedIcon />,
+}, {
+  path: ContentPath.ANALYTICS,
+  icon: <TimelineOutlinedIcon />,
+}];
+
 function Sidebar() {
+  const menus = menu.map(({ path, icon }) => <LinkButton path={path}>{icon}</LinkButton>);
+
   return (
     <Root>
       <PrimaryButton variant="contained">
         <SentimentSatisfiedAltIcon />
       </PrimaryButton>
       <Menu>
-        <SecondButton variant="text">
-          <SaveAsOutlinedIcon />
-        </SecondButton>
-        <SecondButton variant="text">
-          <QuizIcon />
-        </SecondButton>
-        <SecondButton variant="text">
-          <SportsEsportsOutlinedIcon />
-        </SecondButton>
-        <SecondButton variant="text">
-          <TimerIcon />
-        </SecondButton>
-        <SecondButton variant="text">
-          <TimelineOutlinedIcon />
-        </SecondButton>
+        {menus}
       </Menu>
       <UserButton variant="text">
         <FaceOutlinedIcon />
