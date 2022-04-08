@@ -3,7 +3,7 @@
     "baseUrl": "src",
     "paths": {
       "@constants/*": ["constants/*"],
-      "@atoms/*": ["components/atoms/*"]
+      "@components/*": ["components/*"]
     },
     "target": "ESNext",
     "useDefineForClassFields": true,

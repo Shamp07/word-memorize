@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
@@ -8,7 +9,7 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import FaceOutlinedIcon from '@mui/icons-material/FaceOutlined';
 
-import Button from '@atoms/Button';
+import Button from '@components/atoms/Button';
 import { ContentPath } from '@constants/route';
 import LinkButton from './LinkButton';
 
@@ -38,6 +39,7 @@ const PrimaryButton = styled(Button)`
 `;
 
 const UserButton = styled(PrimaryButton)`
+  background: transparent;
   border: 2px solid #0083FF;
   
   & > svg {
@@ -70,13 +72,17 @@ const menu = [{
 }];
 
 function Sidebar() {
-  const menus = menu.map(({ path, icon }) => <LinkButton path={path}>{icon}</LinkButton>);
+  const menus = menu.map(({ path, icon }) => (
+    <LinkButton key={path} path={path}>{icon}</LinkButton>
+  ));
 
   return (
     <Root>
-      <PrimaryButton variant="contained">
-        <SentimentSatisfiedAltIcon />
-      </PrimaryButton>
+      <Link to={ContentPath.HOME}>
+        <PrimaryButton variant="contained">
+          <SentimentSatisfiedAltIcon />
+        </PrimaryButton>
+      </Link>
       <Menu>
         {menus}
       </Menu>

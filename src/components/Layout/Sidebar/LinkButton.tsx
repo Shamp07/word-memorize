@@ -1,22 +1,30 @@
 import React, { ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 
-import Button from '@atoms//Button';
+import Button from '@components/atoms/Button';
 
-interface Props {
-  path: string;
-  children: ReactNode;
-}
+const example = keyframes`
+  from {
+    border-right: 1px solid #0083FF;
+  }
+  
+  to {
+    border-right: 5px solid #0083FF;
+  }
+`;
 
 const Link = styled(NavLink)`
   display: block;
   width: 100%;
   height: 100%;
+  border-right: 2px solid #E4E4E4;
+  transition: border 0.2s;
   
   &.active {
     color: white;
-    border-right: 2px solid #0083FF;
+    animation: ${example} 1s ease 10;
 
     & svg {
       color: #0083FF;
@@ -24,6 +32,7 @@ const Link = styled(NavLink)`
   }
 
   & svg {
+    transition: color 0.2s;
     width: 28px;
     height: 28px;
     color: #2F2F2F;
@@ -35,6 +44,11 @@ const SecondButton = styled(Button)`
   height: 56px;
   border-radius: 23px;
 `;
+
+interface Props {
+  path: string;
+  children: ReactNode;
+}
 
 function LinkButton({ path, children }: Props) {
   return (

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import Layout from './components/Layout';
+import Layout from '@components/Layout';
+import Content from '@components/Content';
 
 function App() {
   return (
     <Layout>
-      Hello Vite!
+      <Content />
     </Layout>
   );
 }
