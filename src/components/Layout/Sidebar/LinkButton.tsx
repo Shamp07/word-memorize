@@ -4,38 +4,46 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
 import Button from '@components/atoms/Button';
+import palette from '@constants/palette';
 
-const example = keyframes`
+const animation = keyframes`
   from {
-    border-right: 1px solid #0083FF;
+    height: 0;
   }
   
   to {
-    border-right: 5px solid #0083FF;
+    height: 100%;
   }
 `;
 
 const Link = styled(NavLink)`
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 100%;
-  border-right: 2px solid #E4E4E4;
-  transition: border 0.2s;
+  position: relative;
   
   &.active {
-    color: white;
-    animation: ${example} 1s ease 10;
+    &:before {
+      position: absolute;
+      left: 100%;
+      content: '';
+      width: 2px;
+      height: 100%;
+      background: ${palette.themePrimary.toString()};
+      animation: ${animation} 0.4s ease 1;
+    }
 
     & svg {
-      color: #0083FF;
+      color: ${palette.themePrimary.toString()};
     }
   }
 
   & svg {
-    transition: color 0.2s;
+    transition: color 0.4s;
     width: 28px;
     height: 28px;
-    color: #2F2F2F;
+    color: ${palette.disabledMenu.toString()};
   }
 `;
 

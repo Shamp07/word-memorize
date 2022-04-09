@@ -11,6 +11,7 @@ import FaceOutlinedIcon from '@mui/icons-material/FaceOutlined';
 
 import Button from '@components/atoms/Button';
 import { ContentPath } from '@constants/route';
+import palette from '@constants/palette';
 import LinkButton from './LinkButton';
 
 const Root = styled.div`
@@ -20,7 +21,7 @@ const Root = styled.div`
   margin-left: 22px;
   width: 76px;
   height: 658px;
-  border-right: 2px solid #E4E4E4;
+  border-right: 2px solid ${palette.sidebarBorder.toString()};
   padding-top: 12px;
   padding-bottom: 12px;
 `;
@@ -28,7 +29,7 @@ const Root = styled.div`
 const PrimaryButton = styled(Button)`
   width: 56px;
   height: 56px;
-  background: #0083FF;
+  background: ${palette.themePrimary.toString()};
   border-radius: 23px;
   
   & > svg {
@@ -40,10 +41,10 @@ const PrimaryButton = styled(Button)`
 
 const UserButton = styled(PrimaryButton)`
   background: transparent;
-  border: 2px solid #0083FF;
+  border: 2px solid ${palette.themePrimary.toString()};
   
   & > svg {
-    color: #0083FF;
+    color: ${palette.themePrimary.toString()};
   }
 `;
 
