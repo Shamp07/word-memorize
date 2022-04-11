@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { css, Global } from '@emotion/react';
 
 import { ContentPath } from '@constants/route';
@@ -10,28 +10,46 @@ const Root = styled.div`
   margin: 22px;
   width: 100%;
   height: 100%;
+  position: relative;
+  
+  & > div, & > div > div {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const ContentInner = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
 `;
 
 const animation = css`
-  .fade-enter .inner {
-    opacity: 0;
-    transform: translateX(-100%);
+  .slide-enter,
+  .slide-exit {
+    transition: transform 1000ms ease-out;
   }
-  .fade-enter-active .inner {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-  .fade-exit .inner {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-  .fade-exit-active .inner {
-    opacity: 0;
+
+  .slide-enter {
     transform: translateX(100%);
   }
-  .fade-enter-active .inner,
-  .fade-exit-active .inner {
-    transition: opacity 500ms, transform 500ms;
+
+  .slide-enter.slide-enter-active {
+    transform: translateX(0%);
+  }
+
+  .slide-exit {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    transform: translateX(0%);
+  }
+
+  .slide-exit-active {
+    transform: translateX(-100%);
   }
 `;
 
@@ -47,18 +65,18 @@ function Content() {
 
   return (
     <Root>
-      <Global styles={animation} />
-      {Object.values(ContentPath).map((path) => (
-        <CSSTransition
-          in={pathname === path}
-          addEndListener={(node, done) => {
-            node.addEventListener('transitionend', done, false);
-          }}
-          className="fade"
-        >
-          <Route path={path} element={<RouteWrapper className="inner">{path}</RouteWrapper>} />
-        </CSSTransition>
-      ))}
+      <ContentInner>
+        <Global styles={animation} />
+        <TransitionGroup>
+          <CSSTransition key={pathname} classNames="slide" timeout={2000}>
+            <Routes>
+              {Object.values(ContentPath).map((path) => (
+                <Route path={path} element={<RouteWrapper className="inner">{path}</RouteWrapper>} />
+              ))}
+            </Routes>
+          </CSSTransition>
+        </TransitionGroup>
+      </ContentInner>
     </Root>
   );
 }

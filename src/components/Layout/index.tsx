@@ -14,6 +14,8 @@ const Root = styled.div`
   background: ${palette.themeWhite.toString()};
   border-radius: 24px;
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.0411932);
+  position: relative;
+  z-index: 10;
 `;
 
 interface Props {
