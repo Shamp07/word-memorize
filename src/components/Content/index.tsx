@@ -5,17 +5,18 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { css, Global } from '@emotion/react';
 
 import { ContentPath } from '@constants/route';
+import Home from './Home';
+import Word from './Word';
+import Card from './Card';
+import Game from './Game';
+import Timer from './Timer';
+import Analytics from './Analytics';
 
 const Root = styled.div`
   margin: 22px;
   width: 100%;
   height: 100%;
   position: relative;
-  
-  & > div, & > div > div {
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 const ContentInner = styled.div`
@@ -28,7 +29,7 @@ const ContentInner = styled.div`
 
 const animation = css`
   .slide-enter,
-  .slide-exit {
+  .slide-exit { 
     transition: transform 1000ms ease-out;
   }
 
@@ -53,12 +54,25 @@ const animation = css`
   }
 `;
 
-const RouteWrapper = styled.div`
-  color: white;
-  background: black;
-  height: 100%;
-  width: 100%;
-`;
+const contentRoutes = [{
+  path: ContentPath.HOME,
+  element: <Home />,
+}, {
+  path: ContentPath.WORD,
+  element: <Word />,
+}, {
+  path: ContentPath.CARD,
+  element: <Card />,
+}, {
+  path: ContentPath.GAME,
+  element: <Game />,
+}, {
+  path: ContentPath.TIMER,
+  element: <Timer />,
+}, {
+  path: ContentPath.ANALYTICS,
+  element: <Analytics />,
+}];
 
 function Content() {
   const { pathname } = useLocation();
@@ -70,8 +84,8 @@ function Content() {
         <TransitionGroup>
           <CSSTransition key={pathname} classNames="slide" timeout={2000}>
             <Routes>
-              {Object.values(ContentPath).map((path) => (
-                <Route path={path} element={<RouteWrapper className="inner">{path}</RouteWrapper>} />
+              {contentRoutes.map(({ path, element }) => (
+                <Route key={path} path={path} element={element} />
               ))}
             </Routes>
           </CSSTransition>
