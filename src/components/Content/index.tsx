@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { css, Global } from '@emotion/react';
+import { useTransition, animated } from '@react-spring/web';
 
 import { ContentPath } from '@constants/route';
 import Home from './Home';
@@ -13,7 +12,7 @@ import Timer from './Timer';
 import Analytics from './Analytics';
 
 const Root = styled.div`
-  margin: 22px;
+  padding: 22px;
   width: 100%;
   height: 100%;
   position: relative;
@@ -25,33 +24,6 @@ const ContentInner = styled.div`
   height: 100%;
   z-index: 1;
   overflow: hidden;
-`;
-
-const animation = css`
-  .slide-enter,
-  .slide-exit { 
-    transition: transform 1000ms ease-out;
-  }
-
-  .slide-enter {
-    transform: translateX(100%);
-  }
-
-  .slide-enter.slide-enter-active {
-    transform: translateX(0%);
-  }
-
-  .slide-exit {
-    position: absolute;
-    z-index: 0;
-    top: 0;
-    left: 0;
-    transform: translateX(0%);
-  }
-
-  .slide-exit-active {
-    transform: translateX(-100%);
-  }
 `;
 
 const contentRoutes = [{
@@ -75,21 +47,25 @@ const contentRoutes = [{
 }];
 
 function Content() {
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const transitions = useTransition(location, {
+    from: { opacity: 0, transform: 'translate3d(100%, 0, 0)' },
+    enter: { opacity: 1, transform: 'translate3d(0%, 0, 0)' },
+    leave: { opacity: 0, transform: 'translate3d(-50%, 0, 0)' },
+  });
 
   return (
     <Root>
       <ContentInner>
-        <Global styles={animation} />
-        <TransitionGroup>
-          <CSSTransition key={pathname} classNames="slide" timeout={2000}>
-            <Routes>
+        {transitions((props, item) => (
+          <animated.div style={props}>
+            <Routes location={item}>
               {contentRoutes.map(({ path, element }) => (
                 <Route key={path} path={path} element={element} />
               ))}
             </Routes>
-          </CSSTransition>
-        </TransitionGroup>
+          </animated.div>
+        ))}
       </ContentInner>
     </Root>
   );

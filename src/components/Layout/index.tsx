@@ -27,7 +27,7 @@ function Layout({ children }: Props) {
     <Root>
       <Global styles={globalStyle} />
       <Sidebar />
-      {children}
+      {/* {children} */}
     </Root>
   );
 }

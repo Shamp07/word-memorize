@@ -24,6 +24,7 @@ const Root = styled.div`
   border-right: 2px solid ${palette.sidebarBorder.toString()};
   padding-top: 12px;
   padding-bottom: 12px;
+  box-sizing: border-box;
 `;
 
 const PrimaryButton = styled(Button)`
