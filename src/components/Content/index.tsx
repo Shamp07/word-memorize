@@ -12,18 +12,27 @@ import Timer from './Timer';
 import Analytics from './Analytics';
 
 const Root = styled.div`
-  padding: 22px;
+  padding: 47px 22px;
+  flex-grow: 1;
+  height: 100%;
+  box-sizing: border-box;
+`;
+
+const ContentWrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: hidden;
 `;
 
-const ContentInner = styled.div`
+const AnimatedWrapper = styled(animated.div)`
   position: absolute;
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
+  left: 0;
+  top: 0;
   z-index: 1;
-  overflow: hidden;
 `;
 
 const contentRoutes = [{
@@ -56,17 +65,17 @@ function Content() {
 
   return (
     <Root>
-      <ContentInner>
+      <ContentWrapper>
         {transitions((props, item) => (
-          <animated.div style={props}>
+          <AnimatedWrapper style={props}>
             <Routes location={item}>
               {contentRoutes.map(({ path, element }) => (
                 <Route key={path} path={path} element={element} />
               ))}
             </Routes>
-          </animated.div>
+          </AnimatedWrapper>
         ))}
-      </ContentInner>
+      </ContentWrapper>
     </Root>
   );
 }
