@@ -9,8 +9,8 @@ import Sidebar from './Sidebar';
 const Root = styled.div`
   display: flex;
   align-items: center;
-  width: 1185px;
-  height: 756px;
+  width: 1400px;
+  height: 826px;
   background: ${palette.themeWhite.toString()};
   border-radius: 24px;
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.0411932);

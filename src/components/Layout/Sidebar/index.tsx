@@ -18,13 +18,10 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 22px;
-  width: 76px;
-  height: 658px;
-  border-right: 2px solid ${palette.sidebarBorder.toString()};
-  padding-top: 12px;
-  padding-bottom: 12px;
+  width: 272px;
+  height: 100%;
   box-sizing: border-box;
+  background: ${palette.sidebarBackground.toString()};
 `;
 
 const PrimaryButton = styled(Button)`
@@ -80,11 +77,6 @@ function Sidebar() {
 
   return (
     <Root>
-      <Link to={ContentPath.HOME}>
-        <PrimaryButton variant="contained">
-          <SentimentSatisfiedAltIcon />
-        </PrimaryButton>
-      </Link>
       <Menu>
         {menus}
       </Menu>
