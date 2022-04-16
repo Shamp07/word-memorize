@@ -13,7 +13,8 @@ const Root = styled.div`
   height: 826px;
   background: ${palette.themeWhite.toString()};
   border-radius: 24px;
-  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.0411932);
+  overflow: hidden;
+  box-shadow: 0px 10px 100px rgba(63, 39, 102, 0.15);
   position: relative;
   z-index: 10;
 `;

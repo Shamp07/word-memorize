@@ -21,7 +21,8 @@ const Root = styled.div`
   width: 272px;
   height: 100%;
   box-sizing: border-box;
-  background: ${palette.sidebarBackground.toString()};
+  background: 
+    linear-gradient(to top right, #8BD8F8, white 50%, #FA9282);
 `;
 
 const PrimaryButton = styled(Button)`
