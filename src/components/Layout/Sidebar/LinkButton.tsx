@@ -22,8 +22,11 @@ const Link = styled(NavLink)`
   width: 100%;
   height: 100%;
   position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
   
   &.active {
+    background: ${}
     &:before {
       position: absolute;
       left: 100%;
@@ -49,8 +52,10 @@ const Link = styled(NavLink)`
 
 const SecondButton = styled(Button)`
   width: 56px;
-  height: 56px;
+  height: 24px;
+  padding: 20px;
   border-radius: 23px;
+  background: white;
 `;
 
 interface Props {
@@ -62,9 +67,7 @@ function LinkButton({ path, children }: Props) {
   return (
     <li>
       <Link to={path} className={({ isActive }) => (isActive ? 'active' : undefined)}>
-        <SecondButton variant="text">
-          {children}
-        </SecondButton>
+        {children}
       </Link>
     </li>
   );

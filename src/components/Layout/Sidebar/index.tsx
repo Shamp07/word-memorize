@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
@@ -21,8 +19,8 @@ const Root = styled.div`
   width: 272px;
   height: 100%;
   box-sizing: border-box;
-  background: 
-    linear-gradient(to top right, #8BD8F8, white 50%, #FA9282);
+  background: linear-gradient(#8F66F9, #D76EAD);
+  position: relative;;
 `;
 
 const PrimaryButton = styled(Button)`
@@ -52,6 +50,21 @@ const Menu = styled.ul`
   flex-direction: column;
   justify-content: space-between;
   height: 326px;
+  margin-left: 48px;
+`;
+
+const RootOverlay = styled.div`
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.35));
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+`;
+
+const RootOverlayColor = styled.div`
+  width: 100%;
+  height: 100%;
+  background: rgba(36, 39, 48, 0.8);
 `;
 
 const menu = [{
@@ -78,6 +91,9 @@ function Sidebar() {
 
   return (
     <Root>
+      <RootOverlay>
+        <RootOverlayColor />
+      </RootOverlay>
       <Menu>
         {menus}
       </Menu>
