@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
-import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
+import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import FaceOutlinedIcon from '@mui/icons-material/FaceOutlined';
 
+
 import Button from '@components/atoms/Button';
 import { ContentPath } from '@constants/route';
 import palette from '@constants/palette';
-import LinkButton from './LinkButton';
+import MenuLink from './MenuLink';
 
 const Root = styled.div`
   display: flex;
@@ -51,6 +51,7 @@ const Menu = styled.ul`
   justify-content: space-between;
   height: 326px;
   margin-left: 48px;
+  margin-top: 160px;
 `;
 
 const RootOverlay = styled.div`
@@ -67,26 +68,31 @@ const RootOverlayColor = styled.div`
   background: rgba(36, 39, 48, 0.8);
 `;
 
-const menu = [{
-  path: ContentPath.WORD,
-  icon: <SaveAsOutlinedIcon />,
+const menus = [{
+  path: ContentPath.HOME,
+  name: 'text',
+  icon: <LibraryBooksOutlinedIcon />,
 }, {
-  path: ContentPath.CARD,
-  icon: <QuizOutlinedIcon />,
+  path: ContentPath.DICTIONARY,
+  name: 'text',
+  icon: <LibraryBooksOutlinedIcon />,
 }, {
   path: ContentPath.GAME,
+  name: 'text',
   icon: <SportsEsportsOutlinedIcon />,
 }, {
   path: ContentPath.TIMER,
+  name: 'text',
   icon: <TimerOutlinedIcon />,
 }, {
   path: ContentPath.ANALYTICS,
+  name: 'text',
   icon: <TimelineOutlinedIcon />,
 }];
 
 function Sidebar() {
-  const menus = menu.map(({ path, icon }) => (
-    <LinkButton key={path} path={path}>{icon}</LinkButton>
+  const menuList = menus.map((menu) => (
+    <MenuLink key={menu.path} menu={menu} />
   ));
 
   return (
@@ -95,7 +101,7 @@ function Sidebar() {
         <RootOverlayColor />
       </RootOverlay>
       <Menu>
-        {menus}
+        {menuList}
       </Menu>
       <UserButton variant="text">
         <FaceOutlinedIcon />
