@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import FaceOutlinedIcon from '@mui/icons-material/FaceOutlined';
-
 
 import Button from '@components/atoms/Button';
 import { ContentPath } from '@constants/route';
@@ -49,9 +49,9 @@ const Menu = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 326px;
   margin-left: 48px;
   margin-top: 160px;
+  z-index: 1;
 `;
 
 const RootOverlay = styled.div`
@@ -70,24 +70,20 @@ const RootOverlayColor = styled.div`
 
 const menus = [{
   path: ContentPath.HOME,
-  name: 'text',
-  icon: <LibraryBooksOutlinedIcon />,
+  name: 'Dashboard',
+  icon: <HomeOutlinedIcon />,
 }, {
   path: ContentPath.DICTIONARY,
-  name: 'text',
+  name: 'Dictionary',
   icon: <LibraryBooksOutlinedIcon />,
 }, {
   path: ContentPath.GAME,
-  name: 'text',
+  name: 'Card',
   icon: <SportsEsportsOutlinedIcon />,
 }, {
   path: ContentPath.TIMER,
-  name: 'text',
+  name: 'Game',
   icon: <TimerOutlinedIcon />,
-}, {
-  path: ContentPath.ANALYTICS,
-  name: 'text',
-  icon: <TimelineOutlinedIcon />,
 }];
 
 function Sidebar() {

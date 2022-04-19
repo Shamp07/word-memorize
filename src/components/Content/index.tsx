@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Routes, Route, useLocation } from 'react-router-dom';
 import { useTransition, animated } from '@react-spring/web';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import { ContentPath } from '@constants/route';
 import Home from './Home';
@@ -39,10 +39,7 @@ const contentRoutes = [{
   path: ContentPath.HOME,
   element: <Home />,
 }, {
-  path: ContentPath.WORD,
-  element: <Word />,
-}, {
-  path: ContentPath.CARD,
+  path: ContentPath.DICTIONARY,
   element: <Card />,
 }, {
   path: ContentPath.GAME,
@@ -61,6 +58,7 @@ function Content() {
     from: { opacity: 0, transform: 'translate3d(100%, 0, 0)' },
     enter: { opacity: 1, transform: 'translate3d(0%, 0, 0)' },
     leave: { opacity: 0, transform: 'translate3d(-50%, 0, 0)' },
+    config: { duration: 500 },
   });
 
   return (
