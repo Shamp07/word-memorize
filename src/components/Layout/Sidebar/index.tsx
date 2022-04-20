@@ -3,13 +3,11 @@ import styled from '@emotion/styled';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
-import FaceOutlinedIcon from '@mui/icons-material/FaceOutlined';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
-import Button from '@components/atoms/Button';
 import { ContentPath } from '@constants/route';
-import palette from '@constants/palette';
 import MenuLink from './MenuLink';
 
 const Root = styled.div`
@@ -20,29 +18,10 @@ const Root = styled.div`
   height: 100%;
   box-sizing: border-box;
   background: linear-gradient(#8F66F9, #D76EAD);
-  position: relative;;
-`;
-
-const PrimaryButton = styled(Button)`
-  width: 56px;
-  height: 56px;
-  background: ${palette.themePrimary.toString()};
-  border-radius: 23px;
-  
-  & > svg {
-    width: 28px;
-    height: 28px;
-    color: white;
-  }
-`;
-
-const UserButton = styled(PrimaryButton)`
-  background: transparent;
-  border: 2px solid ${palette.themePrimary.toString()};
-  
-  & > svg {
-    color: ${palette.themePrimary.toString()};
-  }
+  position: relative;
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+  overflow: hidden;
 `;
 
 const Menu = styled.ul`
@@ -77,13 +56,21 @@ const menus = [{
   name: 'Dictionary',
   icon: <LibraryBooksOutlinedIcon />,
 }, {
+  path: ContentPath.QUIZ,
+  name: 'Quiz',
+  icon: <QuizOutlinedIcon />,
+}, {
   path: ContentPath.GAME,
-  name: 'Card',
+  name: 'Game',
   icon: <SportsEsportsOutlinedIcon />,
 }, {
-  path: ContentPath.TIMER,
-  name: 'Game',
-  icon: <TimerOutlinedIcon />,
+  path: ContentPath.SETTING,
+  name: 'Setting',
+  icon: <SettingsOutlinedIcon />,
+}, {
+  path: ContentPath.LOGIN,
+  name: 'Log In',
+  icon: <LoginOutlinedIcon />,
 }];
 
 function Sidebar() {
@@ -99,9 +86,6 @@ function Sidebar() {
       <Menu>
         {menuList}
       </Menu>
-      <UserButton variant="text">
-        <FaceOutlinedIcon />
-      </UserButton>
     </Root>
   );
 }

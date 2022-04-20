@@ -2,8 +2,10 @@
 export enum ContentPath {
   HOME = '/',
   DICTIONARY = '/dictionary',
-  EXPLORER = '/explore',
+  QUIZ = '/quiz',
   GAME = '/game',
   TIMER = '/timer',
   ANALYTICS = '/analytics',
+  SETTING = '/setting',
+  LOGIN = 'login',
 }

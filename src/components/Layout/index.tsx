@@ -3,10 +3,15 @@ import styled from '@emotion/styled';
 import { Global } from '@emotion/react';
 
 import palette from '@constants/palette';
+import magnifier from '@assets/images/magnifier.png';
 import globalStyle from './globalStyle';
 import Sidebar from './Sidebar';
 
 const Root = styled.div`
+  position: relative;
+`;
+
+const Inner = styled.div`
   display: flex;
   align-items: center;
   width: 1400px;
@@ -19,6 +24,13 @@ const Root = styled.div`
   z-index: 10;
 `;
 
+const Magnifier = styled.img`
+  position: absolute;
+  top: -150px;
+  left: -100px;
+  z-index: 20;
+`;
+
 interface Props {
   children: ReactNode;
 }
@@ -26,9 +38,13 @@ interface Props {
 function Layout({ children }: Props) {
   return (
     <Root>
-      <Global styles={globalStyle} />
-      <Sidebar />
-      {children}
+      <Magnifier src={magnifier} />
+      <Inner>
+        <Global styles={globalStyle} />
+        <Magnifier src={magnifier} />
+        <Sidebar />
+        {children}
+      </Inner>
     </Root>
   );
 }
