@@ -1,7 +1,13 @@
 import Color from 'color';
 
 export default {
-  bodyBackground: new Color('#DDE4EA'),
+  bodyBackgroundGradient: {
+    leftTop: new Color('#CEDEEF'),
+    rightBottom: new Color('#E4D6DE'),
+  },
+
+  contentBackground: new Color('#FFFFFF').alpha(0.6),
+
   themePrimary: new Color('#0083FF'),
   typePrimary: new Color('#242730'),
 
