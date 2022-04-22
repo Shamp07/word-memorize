@@ -8,6 +8,7 @@ import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 import { ContentPath } from '@constants/route';
+import palette from '@constants/palette';
 import MenuLink from './MenuLink';
 
 const Root = styled.div`
@@ -47,7 +48,16 @@ const RootOverlayColor = styled.div`
   background: rgba(36, 39, 48, 0.8);
 `;
 
-const menus = [{
+const Dividing = styled.hr`
+  width: 130px;
+  border-color: ${palette.themeWhite.alpha(0.2).toString()};
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 24px;
+  
+`;
+
+const topMenus = [{
   path: ContentPath.HOME,
   name: 'Dashboard',
   icon: <HomeOutlinedIcon />,
@@ -63,7 +73,9 @@ const menus = [{
   path: ContentPath.GAME,
   name: 'Game',
   icon: <SportsEsportsOutlinedIcon />,
-}, {
+}];
+
+const bottomMenus = [{
   path: ContentPath.SETTING,
   name: 'Setting',
   icon: <SettingsOutlinedIcon />,
@@ -74,7 +86,11 @@ const menus = [{
 }];
 
 function Sidebar() {
-  const menuList = menus.map((menu) => (
+  const topMenuList = topMenus.map((menu) => (
+    <MenuLink key={menu.path} menu={menu} />
+  ));
+
+  const bottomMenuList = bottomMenus.map((menu) => (
     <MenuLink key={menu.path} menu={menu} />
   ));
 
@@ -84,7 +100,9 @@ function Sidebar() {
         <RootOverlayColor />
       </RootOverlay>
       <Menu>
-        {menuList}
+        {topMenuList}
+        <Dividing />
+        {bottomMenuList}
       </Menu>
     </Root>
   );
