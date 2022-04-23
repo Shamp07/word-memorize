@@ -31,6 +31,7 @@ const Magnifier = styled.img`
   top: -110px;
   left: -65px;
   z-index: 20;
+  filter: drop-shadow(0px 9.88285px 98.8285px rgba(63, 39, 102, 0.1));
 `;
 
 const Folder = styled.img`
@@ -38,6 +39,7 @@ const Folder = styled.img`
   bottom: -110px;
   right: -145px;
   z-index: 5;
+  filter: drop-shadow(0px 8.90782px 89.0782px rgba(63, 39, 102, 0.1));
 `;
 
 interface Props {

@@ -15,7 +15,11 @@ const Root = styled.li<{ isActive: boolean }>`
   background: ${({ isActive }) => (isActive ? palette.themeWhite.toString() : 'transparent')};
   
   & > a {
-    color: ${({ isActive }) => (isActive ? palette.typePrimary.toString() : palette.themeWhite.toString())};  
+    color: ${({ isActive }) => (isActive ? palette.typePrimary.toString() : palette.themeWhite.toString())};
+
+    &:hover {
+      color: ${({ isActive }) => (isActive ? palette.typePrimary.toString() : '#d6d6d6')}
+    }
   }
 
   & svg {
@@ -28,11 +32,13 @@ const Root = styled.li<{ isActive: boolean }>`
 
 const Link = styled(RawLink)`
   color: inherit;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  width: 100%;
   height: 24px;
   text-decoration-line: none;
+  transition: color 0.25s;
+  
+
 `;
 
 const Name = styled.div`
