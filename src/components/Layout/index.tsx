@@ -42,6 +42,32 @@ const Folder = styled.img`
   filter: drop-shadow(0px 8.90782px 89.0782px rgba(63, 39, 102, 0.1));
 `;
 
+const FirstBackgroundPage = styled.div`
+  position: absolute;
+  width: 1100px;
+  height: 700px;
+  left: 150px;
+  top: 183px;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 100px rgba(63, 39, 102, 0.04);
+  backdrop-filter: blur(70px);
+  border-radius: 34px;
+  z-index: 5;
+`;
+
+const SecondBackgroundPage = styled.div`
+  position: absolute;
+  width: 1000px;
+  height: 600px;
+  left: 200px;
+  top: 331px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 100px rgba(73, 28, 100, 0.04);
+  backdrop-filter: blur(50px);
+  border-radius: 34px;
+  z-index: 4;
+`;
+
 interface Props {
   children: ReactNode;
 }
@@ -51,6 +77,8 @@ function Layout({ children }: Props) {
     <Root>
       <Magnifier src={magnifier} />
       <Folder src={folder} />
+      <FirstBackgroundPage />
+      <SecondBackgroundPage />
       <Inner>
         <Global styles={globalStyle} />
         <Magnifier src={magnifier} />
