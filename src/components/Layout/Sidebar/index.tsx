@@ -1,11 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
-import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 import { ContentPath } from '@constants/route';
 import palette from '@constants/palette';
@@ -54,35 +48,34 @@ const Dividing = styled.hr`
   margin-top: 20px;
   margin-bottom: 20px;
   margin-left: 24px;
-  
 `;
 
 const topMenus = [{
   path: ContentPath.HOME,
   name: 'Dashboard',
-  icon: <HomeOutlinedIcon />,
+  icon: <i className="ri-home-4-fill" />,
 }, {
   path: ContentPath.DICTIONARY,
   name: 'Dictionary',
-  icon: <LibraryBooksOutlinedIcon />,
+  icon: <i className="ri-book-2-fill" />,
 }, {
   path: ContentPath.QUIZ,
   name: 'Quiz',
-  icon: <QuizOutlinedIcon />,
+  icon: <i className="ri-question-fill" />,
 }, {
   path: ContentPath.GAME,
   name: 'Game',
-  icon: <SportsEsportsOutlinedIcon />,
+  icon: <i className="ri-game-fill" />,
 }];
 
 const bottomMenus = [{
   path: ContentPath.SETTING,
   name: 'Setting',
-  icon: <SettingsOutlinedIcon />,
+  icon: <i className="ri-settings-5-fill" />,
 }, {
   path: ContentPath.LOGIN,
   name: 'Log In',
-  icon: <LoginOutlinedIcon />,
+  icon: <i className="ri-login-box-fill" />,
 }];
 
 function Sidebar() {

@@ -22,9 +22,8 @@ const Root = styled.li<{ isActive: boolean }>`
     }
   }
 
-  & svg {
-    width: 26px;
-    height: 26px;
+  & i {
+    font-size: 26px;
     color: ${({ isActive }) => (isActive ? palette.typePrimary.toString() : palette.disabledMenu.toString())};
     margin-right: 20px;
   }
@@ -37,8 +36,6 @@ const Link = styled(RawLink)`
   height: 24px;
   text-decoration-line: none;
   transition: color 0.25s;
-  
-
 `;
 
 const Name = styled.div`

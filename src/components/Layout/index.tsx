@@ -8,6 +8,8 @@ import folder from '@assets/images/folder.png';
 import globalStyle from './globalStyle';
 import Sidebar from './Sidebar';
 
+import 'remixicon/fonts/remixicon.css';
+
 const Root = styled.div`
   position: relative;
 `;
