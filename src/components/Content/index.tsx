@@ -12,7 +12,7 @@ import Timer from './Timer';
 import Analytics from './Analytics';
 
 const Root = styled.div`
-  padding: 47px 22px;
+  padding: 47px;
   flex-grow: 1;
   height: 100%;
   box-sizing: border-box;
