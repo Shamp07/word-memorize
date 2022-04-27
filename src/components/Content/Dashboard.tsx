@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Card() {
+function Dashboard() {
   return (
     <div>
-      <h1>Card</h1>
+      Dashboard
     </div>
   );
 }
 
-export default Card;
+export default Dashboard;

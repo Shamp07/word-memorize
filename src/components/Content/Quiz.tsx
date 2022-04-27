@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Timer() {
+function Quiz() {
   return (
     <div>
-      <h1>Timer</h1>
+      <h1>Card</h1>
     </div>
   );
 }
 
-export default Timer;
+export default Quiz;

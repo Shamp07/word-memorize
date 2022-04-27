@@ -51,7 +51,7 @@ const Dividing = styled.hr`
 `;
 
 const topMenus = [{
-  path: ContentPath.HOME,
+  path: ContentPath.DASHBOARD,
   name: 'Dashboard',
   icon: <i className="ri-home-4-fill" />,
 }, {

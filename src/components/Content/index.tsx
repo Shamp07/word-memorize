@@ -4,11 +4,10 @@ import { useTransition, animated } from '@react-spring/web';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 import { ContentPath } from '@constants/route';
-import Home from './Home';
-import Word from './Word';
-import Card from './Card';
+import Dashboard from './Dashboard';
+import Dictionary from './Dictionary';
+import Quiz from './Quiz';
 import Game from './Game';
-import Timer from './Timer';
 import Analytics from './Analytics';
 
 const Root = styled.div`
@@ -36,20 +35,23 @@ const AnimatedWrapper = styled(animated.div)`
 `;
 
 const contentRoutes = [{
-  path: ContentPath.HOME,
-  element: <Home />,
+  path: ContentPath.DASHBOARD,
+  element: <Dashboard />,
 }, {
   path: ContentPath.DICTIONARY,
-  element: <Card />,
+  element: <Dictionary />,
+}, {
+  path: ContentPath.QUIZ,
+  element: <Quiz />,
 }, {
   path: ContentPath.GAME,
   element: <Game />,
 }, {
-  path: ContentPath.TIMER,
-  element: <Timer />,
-}, {
-  path: ContentPath.ANALYTICS,
+  path: ContentPath.SETTING,
   element: <Analytics />,
+}, {
+  path: ContentPath.LOGIN,
+  element: <></>,
 }];
 
 function Content() {

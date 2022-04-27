@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 
 const Root = styled.div``;
 
@@ -18,25 +17,31 @@ const Content = styled.div`
 
 const Input = styled(TextField)`
   & + & {
-    margin-left: 20px;
+    margin-left: 24px;
   }
 `;
 
-const Submitbutton = styled(Button)`
-  margin-left: 20px;
+const PlusIcon = styled.i`
+  margin-left: 24px;
+  font-size: 30px;
+  line-height: 60px;
+  
+  &:hover {
+    
+  }
 `;
 
-function Home() {
+function Dictionary() {
   return (
     <Root>
       <Title>단어 입력하기</Title>
       <Content>
         <Input label="단어를 입력하세요." variant="standard" />
         <Input label="단어의 뜻을 입력하세요.." variant="standard" />
-        <Submitbutton variant="contained">추가</Submitbutton>
+        <PlusIcon className="ri-add-circle-line" />
       </Content>
     </Root>
   );
 }
 
-export default Home;
+export default Dictionary;
