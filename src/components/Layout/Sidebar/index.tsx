@@ -12,7 +12,7 @@ const Root = styled.div`
   width: 272px;
   height: 100%;
   box-sizing: border-box;
-  background: linear-gradient(#8F66F9, #D76EAD);
+  background: linear-gradient(${palette.sidebarBackgroundGradient.first.toString()}, ${palette.sidebarBackgroundGradient.second.toString()});
   position: relative;
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
@@ -28,18 +28,18 @@ const Menu = styled.ul`
   z-index: 1;
 `;
 
-const RootOverlay = styled.div`
-  background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.35));
+const Overlay = styled.div`
+  background: linear-gradient(to left, ${palette.themeWhite.alpha(0).toString()}, ${palette.themeWhite.alpha(0.35).toString()});
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 0;
 `;
 
-const RootOverlayColor = styled.div`
+const SecondOverlay = styled.div`
   width: 100%;
   height: 100%;
-  background: rgba(36, 39, 48, 0.8);
+  background: ${palette.sidebarOverlay.toString()};
 `;
 
 const Dividing = styled.hr`
@@ -89,9 +89,9 @@ function Sidebar() {
 
   return (
     <Root>
-      <RootOverlay>
-        <RootOverlayColor />
-      </RootOverlay>
+      <Overlay>
+        <SecondOverlay />
+      </Overlay>
       <Menu>
         {topMenuList}
         <Dividing />

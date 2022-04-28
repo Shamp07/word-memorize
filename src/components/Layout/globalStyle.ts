@@ -32,9 +32,10 @@ const GlobalStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right bottom, ${palette.bodyBackgroundGradient.leftTop.toString()}, ${palette.bodyBackgroundGradient.rightBottom.toString()});
+    background: linear-gradient(to right bottom, ${palette.bodyBackgroundGradient.first.toString()}, ${palette.bodyBackgroundGradient.second.toString()});
     min-height: 100vh;
     line-height: 1;
+    color: ${palette.typePrimary.toString()};
   }
 
   ol, ul {

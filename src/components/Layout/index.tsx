@@ -50,7 +50,7 @@ const FirstBackgroundPage = styled.div`
   height: 700px;
   left: 150px;
   top: 183px;
-  background: rgba(255, 255, 255, 0.3);
+  background: ${palette.themeWhite.alpha(0.3).toString()};
   box-shadow: 0 10px 100px rgba(63, 39, 102, 0.04);
   backdrop-filter: blur(70px);
   border-radius: 34px;
@@ -63,7 +63,7 @@ const SecondBackgroundPage = styled.div`
   height: 600px;
   left: 200px;
   top: 331px;
-  background: rgba(255, 255, 255, 0.2);
+  background: ${palette.themeWhite.alpha(0.2).toString()};
   box-shadow: 0 8px 100px rgba(73, 28, 100, 0.04);
   backdrop-filter: blur(50px);
   border-radius: 34px;

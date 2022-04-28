@@ -8,7 +8,8 @@ import Dashboard from './Dashboard';
 import Dictionary from './Dictionary';
 import Quiz from './Quiz';
 import Game from './Game';
-import Analytics from './Analytics';
+import Setting from './Setting';
+import Login from './Login';
 
 const Root = styled.div`
   padding: 47px;
@@ -48,10 +49,10 @@ const contentRoutes = [{
   element: <Game />,
 }, {
   path: ContentPath.SETTING,
-  element: <Analytics />,
+  element: <Setting />,
 }, {
   path: ContentPath.LOGIN,
-  element: <></>,
+  element: <Login />,
 }];
 
 function Content() {

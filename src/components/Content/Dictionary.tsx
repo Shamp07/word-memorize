@@ -23,8 +23,9 @@ const Input = styled(TextField)`
 
 const PlusIcon = styled.i`
   margin-left: 24px;
-  font-size: 30px;
+  font-size: 24px;
   line-height: 60px;
+  cursor: pointer;
   
   &:hover {
     

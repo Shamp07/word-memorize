@@ -1,10 +1,15 @@
 import React, { ReactNode } from 'react';
 import { Link as RawLink, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 import palette from '@constants/palette';
 
-const Root = styled.li<{ isActive: boolean }>`
+interface RootProps {
+  isActive: boolean;
+}
+
+const Root = styled.li<RootProps>`
   height: 24px;
   border-bottom-left-radius: 36px;
   border-top-left-radius: 36px;
@@ -12,21 +17,38 @@ const Root = styled.li<{ isActive: boolean }>`
   padding-bottom: 20px;
   padding-left: 26px;
   font-size: 14px;
-  background: ${({ isActive }) => (isActive ? palette.themeWhite.toString() : 'transparent')};
   
-  & > a {
-    color: ${({ isActive }) => (isActive ? palette.typePrimary.toString() : palette.themeWhite.toString())};
-
-    &:hover {
-      color: ${({ isActive }) => (isActive ? palette.typePrimary.toString() : '#d6d6d6')}
-    }
-  }
-
   & i {
     font-size: 26px;
-    color: ${({ isActive }) => (isActive ? palette.typePrimary.toString() : palette.disabledMenu.toString())};
     margin-right: 20px;
   }
+  
+  ${({ isActive }) => (isActive ? css`
+    background: ${palette.themeWhite.toString()};
+    
+    & > a {
+      color: ${palette.typePrimary.toString()};
+      &:hover {
+        color: ${palette.typePrimary.toString()};
+      }
+    }
+    
+    & i {
+      color: ${palette.typePrimary.toString()};
+    }
+  ` : css`
+    & > a {
+      color: ${palette.themeWhite.toString()};
+      &:hover {
+        color: ${palette.disabledHoverMenu.toString()};
+      }
+    }
+    
+    & i {
+      color: ${palette.disabledMenu.toString()};
+      
+    }
+  `)}
 `;
 
 const Link = styled(RawLink)`
@@ -35,7 +57,7 @@ const Link = styled(RawLink)`
   align-items: center;
   height: 24px;
   text-decoration-line: none;
-  transition: color 0.25s;
+  transition: color .25s;
 `;
 
 const Name = styled.div`
