@@ -46,7 +46,6 @@ const Root = styled.li<RootProps>`
     
     & i {
       color: ${palette.disabledMenu.toString()};
-      
     }
   `)}
 `;

@@ -5,7 +5,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 
 import { ContentPath } from '@constants/route';
 import Dashboard from './Dashboard';
-import Dictionary from './Dictionary';
+import Index from './Dictionary';
 import Quiz from './Quiz';
 import Game from './Game';
 import Setting from './Setting';
@@ -40,7 +40,7 @@ const contentRoutes = [{
   element: <Dashboard />,
 }, {
   path: ContentPath.DICTIONARY,
-  element: <Dictionary />,
+  element: <Index />,
 }, {
   path: ContentPath.QUIZ,
   element: <Quiz />,
