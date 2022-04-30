@@ -15,48 +15,17 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
 
 interface Data {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
-}
-
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-): Data {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
+  word: string;
+  partsOfSpeech: string;
+  meaning: string;
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
+  { word: 'certain', partsOfSpeech: '형용사', meaning: '확실한, 틀림없는' },
+  { word: 'deserve', partsOfSpeech: '동사', meaning: '…을 받을 만하다[누릴 자격이 있다], …을 (당)해야 마땅하다' },
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -75,8 +44,8 @@ function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
 ): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string },
+    a: { [key in Key]: string },
+    b: { [key in Key]: string },
   ) => number {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -106,34 +75,22 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: 'name',
+    id: 'word',
     numeric: false,
     disablePadding: true,
-    label: 'Dessert (100g serving)',
+    label: 'Word',
   },
   {
-    id: 'calories',
-    numeric: true,
-    disablePadding: false,
-    label: 'Calories',
+    id: 'partsOfSpeech',
+    numeric: false,
+    disablePadding: true,
+    label: 'Parts of Speech',
   },
   {
-    id: 'fat',
-    numeric: true,
+    id: 'meaning',
+    numeric: false,
     disablePadding: false,
-    label: 'Fat (g)',
-  },
-  {
-    id: 'carbs',
-    numeric: true,
-    disablePadding: false,
-    label: 'Carbs (g)',
-  },
-  {
-    id: 'protein',
-    numeric: true,
-    disablePadding: false,
-    label: 'Protein (g)',
+    label: 'Meaning',
   },
 ];
 
@@ -231,19 +188,19 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          2020-04-30
         </Typography>
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            아이콘!
+            <i className="ri-delete-bin-7-fill" />
           </IconButton>
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
           <IconButton>
-            아이콘!
+            <i className="ri-filter-3-line" />
           </IconButton>
         </Tooltip>
       )}
@@ -256,7 +213,6 @@ function WordTable() {
   const [orderBy, setOrderBy] = useState<keyof Data>('calories');
   const [selected, setSelected] = useState<readonly string[]>([]);
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleRequestSort = (
@@ -306,10 +262,6 @@ function WordTable() {
     setPage(0);
   };
 
-  const handleChangeDense = (event: ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
-
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -317,13 +269,13 @@ function WordTable() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+      <Paper sx={{ width: '100%', mb: 2, boxShadow: 'none' }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size="medium"
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -339,13 +291,13 @@ function WordTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.word);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.word)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -367,19 +319,17 @@ function WordTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.word}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="left">{row.partsOfSpeech}</TableCell>
+                      <TableCell align="left">{row.meaning}</TableCell>
                     </TableRow>
                   );
                 })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: 53 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -398,10 +348,6 @@ function WordTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 }
