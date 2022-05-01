@@ -1,31 +1,23 @@
 import React, { ChangeEvent, MouseEvent, useState } from 'react';
-import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import { visuallyHidden } from '@mui/utils';
 
-interface Data {
-  word: string;
-  partsOfSpeech: string;
-  meaning: string;
-}
+import { WordTableData, WordTableOrder } from '@types';
+import WordTableHead from './WordTableHead';
+import WordTableToolbar from './WordTableToolbar';
 
 const rows = [
   { word: 'certain', partsOfSpeech: '형용사', meaning: '확실한, 틀림없는' },
   { word: 'deserve', partsOfSpeech: '동사', meaning: '…을 받을 만하다[누릴 자격이 있다], …을 (당)해야 마땅하다' },
+  { word: 'proposal', partsOfSpeech: '명사', meaning: '제안, 제의' },
+  { word: 'vain', partsOfSpeech: '형용사', meaning: '헛된, 소용없는 (=useless)' },
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -38,10 +30,8 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   return 0;
 }
 
-type Order = 'asc' | 'desc';
-
 function getComparator<Key extends keyof any>(
-  order: Order,
+  order: WordTableOrder,
   orderBy: Key,
 ): (
     a: { [key in Key]: string },
@@ -66,158 +56,16 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
   return stabilizedThis.map((el) => el[0]);
 }
 
-interface HeadCell {
-  disablePadding: boolean;
-  id: keyof Data;
-  label: string;
-  numeric: boolean;
-}
-
-const headCells: readonly HeadCell[] = [
-  {
-    id: 'word',
-    numeric: false,
-    disablePadding: true,
-    label: 'Word',
-  },
-  {
-    id: 'partsOfSpeech',
-    numeric: false,
-    disablePadding: true,
-    label: 'Parts of Speech',
-  },
-  {
-    id: 'meaning',
-    numeric: false,
-    disablePadding: false,
-    label: 'Meaning',
-  },
-];
-
-interface EnhancedTableProps {
-  numSelected: number;
-  onRequestSort: (event: MouseEvent<unknown>, property: keyof Data) => void;
-  onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
-
-function EnhancedTableHead(props: EnhancedTableProps) {
-  const {
-    onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort,
-  } = props;
-  const createSortHandler = (property: keyof Data) => (event: MouseEvent<unknown>) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-interface EnhancedTableToolbarProps {
-  numSelected: number;
-}
-
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) => (
-            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity)
-          ),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected}
-          {' '}
-          selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          2020-04-30
-        </Typography>
-      )}
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <i className="ri-delete-bin-7-fill" />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <i className="ri-filter-3-line" />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
-  );
-}
-
 function WordTable() {
-  const [order, setOrder] = useState<Order>('asc');
-  const [orderBy, setOrderBy] = useState<keyof Data>('calories');
+  const [order, setOrder] = useState<WordTableOrder>('asc');
+  const [orderBy, setOrderBy] = useState<keyof WordTableData>('word');
   const [selected, setSelected] = useState<readonly string[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleRequestSort = (
     event: MouseEvent<unknown>,
-    property: keyof Data,
+    property: keyof WordTableData,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -226,7 +74,7 @@ function WordTable() {
 
   const handleSelectAllClick = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.word);
       setSelected(newSelecteds);
       return;
     }
@@ -270,14 +118,14 @@ function WordTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2, boxShadow: 'none' }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <WordTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size="medium"
           >
-            <EnhancedTableHead
+            <WordTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -301,7 +149,7 @@ function WordTable() {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.word}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">

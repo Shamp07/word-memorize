@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
 
 import palette from '@constants/palette';
-import WordTable from "./WordTable";
+import WordTable from './WordTable';
 
 const Root = styled.div``;
 
@@ -45,7 +45,7 @@ const PlusIcon = styled.i`
   }
 `;
 
-function Index() {
+function Dictionary() {
   return (
     <Root>
       <Title>단어 입력하기</Title>
@@ -62,4 +62,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default Dictionary;

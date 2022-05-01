@@ -4,7 +4,8 @@
     "paths": {
       "@constants/*": ["constants/*"],
       "@components/*": ["components/*"],
-      "@assets/*": ["assets/*"]
+      "@assets/*": ["assets/*"],
+      "@types": ["types"]
     },
     "target": "ESNext",
     "useDefineForClassFields": true,
